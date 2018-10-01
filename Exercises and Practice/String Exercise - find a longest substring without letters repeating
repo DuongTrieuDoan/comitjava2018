@@ -1,0 +1,41 @@
+import java.util.Scanner;
+public class StringTest {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("String to check (no space):");
+        String inputString = sc.next().toString();
+        if (inputString.length()>0){
+            String LongestSubString = LongestNoDupString(inputString).toString();
+            if (LongestSubString.length()>0){
+                System.out.println("The longest substring:");
+                System.out.println(LongestSubString);
+            }else {
+                System.out.println("Error string");
+            }
+        }else{
+            System.out.println("You input an empty string");
+        }
+    }
+    private static String LongestNoDupString(String MainString){
+        int FPos=0;
+        int StrLength=MainString.length();
+        String StringCheck =MainString.substring(FPos,1);
+        String CharCheck;
+        for (int i=1;i<StrLength;i++){
+            CharCheck=MainString.substring(i,i+1);
+            System.out.println(MainString.substring(FPos,i) + " - " + CharCheck);
+            if (MainString.substring(FPos,i).contains(CharCheck)){
+                if (StringCheck.length()<MainString.substring(FPos,i).length()){
+                    StringCheck=MainString.substring(FPos,i);
+                }
+                FPos=FPos+ MainString.substring(FPos,i).indexOf(CharCheck)+1;
+                System.out.println(MainString.substring(FPos,i));
+            }else if(StrLength==i+1){
+                if (StringCheck.length()<MainString.substring(FPos,i+1).length()){
+                    StringCheck=MainString.substring(FPos,i+1);
+                }
+            }
+        }
+        return StringCheck;
+    }
+}
